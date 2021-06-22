@@ -7,7 +7,7 @@ export default function Navi() {
     return (
         <div>
             
-           <Menu inverted fixed size='large'>
+           <Menu inverted fixed ="top" size='large'>
            <Container>
         <Menu.Item
           name='home'

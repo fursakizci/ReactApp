@@ -1,36 +1,42 @@
-import React from 'react'
-import {Table,Label,Menu,Icon} from 'semantic-ui-react'
+import React, {useState,useEffect} from 'react'
+import {Table,Menu,Icon} from 'semantic-ui-react'
+import ProductService from '../services/ProductService'
 
 export default function ProductList() {
+
+  //distructer islemi ve hook ifadesi
+  const [products, setProducts] = useState([])
+  //lifecycle hook
+
+  useEffect(()=>{
+    //component yuklendigindee calisan komut
+    let productService = new ProductService()
+    productService.getProducts().then(result=> setProducts(result.data))
+  })
+
+
     return (
         <div>
             <Table celled>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-        <Table.HeaderCell>Header</Table.HeaderCell>
-        <Table.HeaderCell>Header</Table.HeaderCell>
+        <Table.HeaderCell>UserId</Table.HeaderCell>
+        <Table.HeaderCell>Id</Table.HeaderCell>
+        <Table.HeaderCell>Title</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
     <Table.Body>
-      <Table.Row>
-        <Table.Cell>
-          <Label ribbon>First</Label>
-        </Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
+      {products.map(product => (
+        <Table.Row key={product.id}>
+          <Table.Cell>{product.userId}</Table.Cell>
+          <Table.Cell>{product.id}</Table.Cell>
+          <Table.Cell>{product.title}</Table.Cell>
       </Table.Row>
-      <Table.Row>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-      </Table.Row>
+      ))
+      }
+      
+      
     </Table.Body>
 
     <Table.Footer>
