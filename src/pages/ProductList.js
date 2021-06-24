@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import {Table,Menu,Icon} from 'semantic-ui-react'
 import ProductService from '../services/ProductService'
+import { Link } from 'react-router-dom'
 
 export default function ProductList() {
 
@@ -12,8 +13,9 @@ export default function ProductList() {
     //component yuklendigindee calisan komut
     let productService = new ProductService()
     productService.getProducts().then(result=> setProducts(result.data))
-  })
+  },[])
 
+  
 
     return (
         <div>
@@ -30,7 +32,7 @@ export default function ProductList() {
       {products.map(product => (
         <Table.Row key={product.id}>
           <Table.Cell>{product.userId}</Table.Cell>
-          <Table.Cell>{product.id}</Table.Cell>
+          <Table.Cell><Link to={`/products/${product.id}`}>{product.id}</Link></Table.Cell>
           <Table.Cell>{product.title}</Table.Cell>
       </Table.Row>
       ))
